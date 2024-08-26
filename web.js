@@ -21,17 +21,9 @@ async function clickUpload() {
   const [file] = files;
   const formData = new FormData();
 
-  // 添加一些额外的属性给 file (微信小程序临时素材)
-  // https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/New_temporary_materials.html#%E8%BF%94%E5%9B%9E%E8%AF%B4%E6%98%8E
-  Object.assign(file.__proto__, {
-    filename: file.name,
-    filelength: file.size,
-    'content-type': file.type,
-  });
-
   formData.append('media', file);
 
   console.log('---- meida ----:', formData.get('media'));
   const res = await axios.post('http://localhost:3003/form-data', formData);
-  console.log('==== res ====:', res);
+  console.log('==== res.data ====:', res.data);
 }
