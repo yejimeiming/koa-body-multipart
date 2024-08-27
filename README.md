@@ -21,3 +21,7 @@ yarn start:web
 ```sh
 yarn start:weixin
 ```
+
+## 运行截图
+
+![screenshot.png](./screenshot.png)
