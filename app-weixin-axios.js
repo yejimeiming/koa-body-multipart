@@ -25,10 +25,10 @@ router.post('/form-data', async ctx => {
     // 这里使用 fs.readFileSync(filepath) 读取成 Buffer 即可重新组装到 `const FormData = require('form-data');` 中
     file,
   ] of Object.entries(ctx.request.files)) {
-    formData.append(key, fs.readFileSync(file.filepath), {
+    formData.append(key, fs.readFileSync(file.filepath || /* 兼容老版本 formidable */file.path), {
       // 添加一些额外的属性给 file (微信小程序临时素材) - 实测 filename 必传，否则报错 {errcode: 41005, errmsg: 'media data missing hint: [MBuA4a08739031] rid: 66cc9e30-0157894b-1b8dab4d'
       // https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/New_temporary_materials.html#%E8%BF%94%E5%9B%9E%E8%AF%B4%E6%98%8E
-      filename: file.originalFilename,
+      filename: file.originalFilename || /* 兼容老版本 formidable */file.name,
     });
   }
 
