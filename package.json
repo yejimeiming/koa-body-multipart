@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon node app.js",
-    "start:weixin": "nodemon node app-weixin-request.js",
+    "start:weixin": "nodemon node app-weixin-axios.js",
     "start:web": "http-server -p 8080"
   },
   "dependencies": {
