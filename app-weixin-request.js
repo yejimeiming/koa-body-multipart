@@ -17,11 +17,14 @@ router.post('/form-data', async ctx => {
   console.log('[==== /form-data ====]');
   // console.log('[files]', ctx.request.files);
 
-  const file = Object.values(ctx.request.files)[0];
-  const ACCESS_TOKEN = '83_6KuPD3JDRtVeX5qTCGi1V90hYTrjO06bNt7bJna2eJXsQ5br5lDlPZ12SfhOkXtjudmHBroo9ahWsBV6XIzI0hbo7hi3u3XOCMWoTlngz-Lzm5VmXZLVugaCKWx2yESfQ9Kt8gmljLUpdi-HQSRbAGDACB';
+  const [
+    // 微信临时素材接口字段定义为 media，不过这里使用 request 不关心此 key
+    key,
+    file,
+  ] = Object.entries(ctx.request.files)[0];
   const result = await new Promise((resolve) => {
     request({
-      url: `https://api.weixin.qq.com/cgi-bin/media/upload?access_token=${ACCESS_TOKEN}&type=image`,
+      url: `https://api.weixin.qq.com/cgi-bin/media/upload?access_token=${body.access_token}&type=image`,
       method: 'POST',
       formData: {
         buffer: {

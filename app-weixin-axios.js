@@ -19,6 +19,7 @@ router.post('/form-data', async ctx => {
   const formData = new FormData();
   for (const [
     // 前端传过来的 key, 在 web.js 中为 media
+    // 这里 key 不一定非得用 media 随便写个字符串就行，比如：asdf
     key,
     // 这个 file 是 import('formidable').File
     // 最重要的是里面有个属性 filepath 是 koa-body 接收前端传递的 FormData 中文件的保存路径
@@ -32,10 +33,8 @@ router.post('/form-data', async ctx => {
     });
   }
 
-  // ******* 这里换成你的 authorizer_access_token *******
-  const ACCESS_TOKEN = '83_AY4UiAfBT39DWdhYyd7a4jcpX-QCwC2tUrOUGZq-G1n0drD2c28ycxbb8K6qMjli5zGKt4QoxJZdqb9tjJK9SetQM94-vPopei1sPWIqcKlon8MQOxp0JnUNCd44VzUGjSRM5zxHaIvm21OKVATgAMDBGZ';
   const res = await axios.post(
-    `https://api.weixin.qq.com/cgi-bin/media/upload?access_token=${ACCESS_TOKEN}&type=image`,
+    `https://api.weixin.qq.com/cgi-bin/media/upload?access_token=${body.access_token}&type=image`,
     // 直接将 FormData 怼给 axios.post 第二个参数，它可以自动识别
     formData,
   );
